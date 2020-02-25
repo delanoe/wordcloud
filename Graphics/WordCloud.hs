@@ -22,9 +22,10 @@ module Graphics.WordCloud
     )
     where
 
+import Prelude hiding (Word)
 import Graphics.GD
 import Data.Map (Map)
-import qualified Data.Map as M
+import qualified Data.Map.Strict as M
 import Data.Maybe
 import Data.List
 import Data.Ord
@@ -82,7 +83,7 @@ toLetter c | isLetter c = c
 
 -- | Make a histogram of a list.
 histogram :: (Ord a, Num n) => [a] -> Map a n
-histogram = foldl' (flip $ flip (M.insertWith' $ const (+1)) 1) M.empty
+histogram = foldl' (flip $ flip (M.insertWith $ const (+1)) 1) M.empty
 
 -- | Draw the histogram onto the Image.
 drawWords :: Histogram -> Cloud ()
